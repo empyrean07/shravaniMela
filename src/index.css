@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #4F1C9E;
+  --color-brand-primary-light: #EBDDFF;
+  --color-brand-primary-border: #CCC3D5;
+  --color-brand-primary-dark: #250059;
+  
+  --color-saffron: #FF9800;
+  --color-saffron-light: #FFDCBE;
+  --color-saffron-dark: #8B5000;
+  --color-saffron-bg-dark: #2C1600;
+
+  --color-neutral-dark: #1A1C1D;
+  --color-neutral-secondary: #4A4453;
+  --color-neutral-bg: #F9F9FB;
+  --color-neutral-bg-cool: #EEEEF0;
+
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-action: "Work Sans", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-neutral-bg);
+    color: var(--color-neutral-dark);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+/* Hide scrollbar utility for general elements */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
