@@ -53,11 +53,11 @@ export default function Sidebar() {
         className={`bg-white border-r border-brand-primary-border/40 h-full flex flex-col justify-between shrink-0 transition-all duration-300 z-45
           /* Mobile styling: Floating drawer on small screens, otherwise collapsed strip */
           ${isMobileOpen 
-            ? 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] translate-x-0 shadow-2xl' 
-            : 'fixed top-0 left-0 w-16 -translate-x-full md:translate-x-0 md:relative'
+            ? 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] shadow-2xl' 
+            : 'fixed top-0 -left-full w-[280px] sm:w-[320px] max-w-[85vw] md:left-0 md:relative'
           }
           /* Desktop styling: Toggle between 320px and 80px */
-          ${!isMobileOpen && (isCollapsed ? 'md:w-20' : 'md:w-[320px]')}
+          ${!isMobileOpen && (isCollapsed ? 'md:w-20 md:max-w-none' : 'md:w-[320px] md:max-w-none')}
         `}
       >
         
