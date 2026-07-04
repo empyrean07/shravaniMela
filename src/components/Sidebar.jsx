@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Phone, HeartPulse, Compass, CloudSun, Menu, ChevronLeft, ChevronRight, Flame } from 'lucide-react';
+import { Home, Phone, HeartPulse, Compass, CloudSun, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
+
+// Custom SVG Logo drawn in Figma (stylized temple shikhara)
+function FigmaLogo({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg 
+      viewBox="0 0 30 32" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path 
+        d="M0 31.5L0 15L3 15L3 18L6 18L10.4625 3.1875L10.4625 0L13.4625 0L13.4625 3L16.5 3L16.5 0L19.5 0L19.5 3L24 18L27 18L27 15L30 15L30 31.5L16.5 31.5L16.5 24L13.5 24L13.5 31.5L0 31.5M10.05 15L19.95 15L19.05 12L10.95 12L10.05 15M11.85 9L18.15 9L17.25 6L12.75 6L11.85 9M3 28.5L10.5 28.5L10.5 21L19.5 21L19.5 28.5L27 28.5L27 21L21.75 21L20.85 18L9.15 18L8.25 21L3 21L3 28.5" 
+        fill={color}
+      />
+    </svg>
+  );
+}
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -36,11 +53,11 @@ export default function Sidebar() {
         className={`bg-white border-r border-brand-primary-border/40 h-full flex flex-col justify-between shrink-0 transition-all duration-300 z-45
           /* Mobile styling: Floating drawer on small screens, otherwise collapsed strip */
           ${isMobileOpen 
-            ? 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] shadow-2xl' 
-            : 'fixed top-0 -left-full w-[280px] sm:w-[320px] max-w-[85vw] md:left-0 md:relative'
+            ? 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] translate-x-0 shadow-2xl' 
+            : 'fixed top-0 left-0 w-16 -translate-x-full md:translate-x-0 md:relative'
           }
           /* Desktop styling: Toggle between 320px and 80px */
-          ${!isMobileOpen && (isCollapsed ? 'md:w-20 md:max-w-none' : 'md:w-[320px] md:max-w-none')}
+          ${!isMobileOpen && (isCollapsed ? 'md:w-20' : 'md:w-[320px]')}
         `}
       >
         
@@ -49,10 +66,10 @@ export default function Sidebar() {
           ${isCollapsed ? 'p-4 items-center' : 'p-6 sm:p-8'}
         `}>
           
-          {/* Logo & Branding - Replaced Compass with Flame Devotional Icon */}
+          {/* Logo & Branding - Replaced general Flame with custom Figma-drawn shikhara logo */}
           <div className={`flex items-center gap-3 ${isCollapsed ? 'flex-col' : ''}`}>
             <div className="w-12 h-12 rounded-xl bg-brand-primary flex items-center justify-center text-white shadow-md shadow-brand-primary/20 shrink-0">
-              <Flame size={24} className="text-saffron fill-saffron animate-pulse" />
+              <FigmaLogo className="w-7 h-7" color="#FF9800" />
             </div>
             
             {!isCollapsed && (
