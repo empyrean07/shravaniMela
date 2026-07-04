@@ -3,22 +3,71 @@ import { useNavigate } from 'react-router-dom';
 import { 
   HeartPulse, Droplets, Bed, Utensils, Shield, Bus, Search, Waves, 
   ArrowRight, Users, BatteryCharging, Briefcase, Music, PlusCircle, 
-  CheckCircle2, AlertTriangle, UserCheck, ShieldAlert 
+  CheckCircle2, AlertTriangle, UserCheck, ShieldAlert, Upload, Image as ImageIcon
 } from 'lucide-react';
 
 export default function FacilitiesGrid({ isHome = false }) {
   const navigate = useNavigate();
   const [isAdminMode, setIsAdminMode] = useState(false);
+
+  // Initial lost reports with mock image previews
   const [lostReports, setLostReports] = useState([
-    { id: 1, type: "Person", name: "Ramesh Kumar (Age 62)", location: "Near Sultanganj Ghat", desc: "Wearing orange dhoti, carrying brass water pot.", contact: "+91-98765-11111", date: "2026-07-04" },
-    { id: 2, type: "Belonging", name: "Red backpack", location: "Katoria Resting Camp 3", desc: "Contains Aadhaar card, train ticket, and clothes.", contact: "+91-98765-22222", date: "2026-07-03" }
+    { 
+      id: 1, 
+      type: "Person", 
+      name: "Ramesh Kumar (Age 62)", 
+      location: "Near Sultanganj Ghat", 
+      desc: "Wearing orange dhoti, carrying brass water pot.", 
+      contact: "+91-98765-11111", 
+      date: "2026-07-04",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 2, 
+      type: "Belonging", 
+      name: "Red backpack", 
+      location: "Katoria Resting Camp 3", 
+      desc: "Contains Aadhaar card, train ticket, and clothes.", 
+      contact: "+91-98765-22222", 
+      date: "2026-07-03",
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=150&auto=format&fit=crop&q=60"
+    }
   ]);
 
+  // Initial found items with mock image previews
   const [foundItems, setFoundItems] = useState([
-    { id: 1, name: "Leather Wallet (Black)", location: "Sultanganj", status: "Claimable at Helpdesk 2", type: "Belonging" },
-    { id: 2, name: "OnePlus Mobile Phone", location: "Shivir 4", status: "Claimable at Helpdesk 5", type: "Belonging" },
-    { id: 3, name: "Titan Wrist Watch", location: "Main Temple", status: "Claimable at Temple Office", type: "Belonging" },
-    { id: 4, name: "Child (Age 8, Aarav)", location: "Helpdesk B", status: "Reunited Successfully!", type: "Person" }
+    { 
+      id: 1, 
+      name: "Leather Wallet (Black)", 
+      location: "Sultanganj", 
+      status: "Claimable at Helpdesk 2", 
+      type: "Belonging",
+      image: "https://images.unsplash.com/photo-1627124765135-566b535f9a45?w=300&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 2, 
+      name: "OnePlus Mobile Phone", 
+      location: "Shivir 4", 
+      status: "Claimable at Helpdesk 5", 
+      type: "Belonging",
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 3, 
+      name: "Titan Wrist Watch", 
+      location: "Main Temple", 
+      status: "Claimable at Temple Office", 
+      type: "Belonging",
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 4, 
+      name: "Child (Age 8, Aarav)", 
+      location: "Helpdesk B", 
+      status: "Reunited Successfully!", 
+      type: "Person",
+      image: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=300&auto=format&fit=crop&q=60"
+    }
   ]);
 
   // Devotee Form State
@@ -27,12 +76,30 @@ export default function FacilitiesGrid({ isHome = false }) {
   const [reportLoc, setReportLoc] = useState('');
   const [reportDesc, setReportDesc] = useState('');
   const [reportContact, setReportContact] = useState('');
+  const [reportImage, setReportImage] = useState('');
 
   // Admin Form State
   const [foundName, setFoundName] = useState('');
   const [foundLoc, setFoundLoc] = useState('');
   const [foundStatus, setFoundStatus] = useState('Claimable at Helpdesk 1');
   const [foundType, setFoundType] = useState('Belonging');
+  const [foundImage, setFoundImage] = useState('');
+
+  // Real Local File Reader Handler
+  const handleImageChange = (e, isForAdmin = false) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (isForAdmin) {
+        setFoundImage(reader.result);
+      } else {
+        setReportImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleReportSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +111,8 @@ export default function FacilitiesGrid({ isHome = false }) {
       location: reportLoc,
       desc: reportDesc,
       contact: reportContact,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0],
+      image: reportImage || "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=150&auto=format&fit=crop&q=60"
     };
     setLostReports([newReport, ...lostReports]);
     // reset form
@@ -52,6 +120,7 @@ export default function FacilitiesGrid({ isHome = false }) {
     setReportLoc('');
     setReportDesc('');
     setReportContact('');
+    setReportImage('');
   };
 
   const handleFoundSubmit = (e) => {
@@ -62,13 +131,15 @@ export default function FacilitiesGrid({ isHome = false }) {
       name: foundName,
       location: foundLoc,
       status: foundStatus,
-      type: foundType
+      type: foundType,
+      image: foundImage || "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=300&auto=format&fit=crop&q=60"
     };
     setFoundItems([newItem, ...foundItems]);
     // reset form
     setFoundName('');
     setFoundLoc('');
     setFoundStatus('Claimable at Helpdesk 1');
+    setFoundImage('');
   };
 
   const facilities = [
@@ -88,7 +159,6 @@ export default function FacilitiesGrid({ isHome = false }) {
     { id: 12, title: "Spiritual Satsang Halls", desc: "Air-conditioned halls for spiritual rest and bhajan.", icon: Music, color: "text-pink-500 bg-pink-50" }
   ];
 
-  // Limit facilities view on Home dashboard
   const visibleFacilities = isHome ? facilities.slice(0, 4) : facilities;
 
   return (
@@ -167,202 +237,279 @@ export default function FacilitiesGrid({ isHome = false }) {
             </button>
           </div>
 
-          {/* Split reporting and display boards */}
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Split reporting and display boards - Refactored into rows layout */}
+          <div className="flex flex-col gap-8 w-full">
             
-            {/* Column 1: Reporting Forms (Devotee / Admin) */}
-            <div className="w-full lg:w-[400px] shrink-0 bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm">
+            {/* ROW 1: Form and Found Board Side-by-Side */}
+            <div className="flex flex-col lg:flex-row gap-8 w-full">
               
-              {!isAdminMode ? (
-                /* Devotee Lost Report Form */
-                <form onSubmit={handleReportSubmit} className="flex flex-col gap-4">
-                  <h5 className="font-sans font-extrabold text-sm text-neutral-dark flex items-center gap-2 border-b border-brand-primary-border/15 pb-3">
-                    <PlusCircle size={16} className="text-brand-primary" />
-                    Report Lost Item / Missing Person
-                  </h5>
+              {/* Form Container */}
+              <div className="flex-1 w-full bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm">
+                {!isAdminMode ? (
+                  /* Devotee Lost Report Form */
+                  <form onSubmit={handleReportSubmit} className="flex flex-col gap-4">
+                    <h5 className="font-sans font-extrabold text-sm text-neutral-dark flex items-center gap-2 border-b border-brand-primary-border/15 pb-3">
+                      <PlusCircle size={16} className="text-brand-primary" />
+                      Report Lost Item / Missing Person
+                    </h5>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Report Category</label>
-                    <select 
-                      value={reportType}
-                      onChange={(e) => setReportType(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Report Category</label>
+                      <select 
+                        value={reportType}
+                        onChange={(e) => setReportType(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      >
+                        <option value="Belonging">Lost Belonging</option>
+                        <option value="Person">Missing Person</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Name / Item Title</label>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder={reportType === 'Person' ? "e.g. Ramesh Kumar" : "e.g. Black Leather Bag"}
+                        value={reportName}
+                        onChange={(e) => setReportName(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      />
+                    </div>
+
+                    {/* Real Image Upload Section */}
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Photograph / Reference Image</label>
+                      <div className="flex items-center gap-3">
+                        <label
+                          htmlFor="lost-image-input"
+                          className="flex-1 h-12 border-2 border-dashed border-brand-primary-border/40 hover:border-brand-primary rounded-xl flex items-center justify-center gap-2 text-xs font-semibold text-neutral-secondary hover:text-brand-primary bg-neutral-bg/30 transition-all cursor-pointer"
+                        >
+                          <Upload size={16} />
+                          {reportImage ? "Change Photograph" : "Choose from Device"}
+                        </label>
+                        <input 
+                          type="file"
+                          id="lost-image-input"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleImageChange(e, false)}
+                        />
+                        {reportImage && (
+                          <div className="w-12 h-12 rounded-lg border border-brand-primary-border/30 overflow-hidden shrink-0">
+                            <img src={reportImage} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Last Seen Location</label>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder="e.g. Sultanganj Ghat or Shivir 3"
+                        value={reportLoc}
+                        onChange={(e) => setReportLoc(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Description</label>
+                      <textarea 
+                        rows="2"
+                        placeholder="Add details (colour, size, last clothes worn...)"
+                        value={reportDesc}
+                        onChange={(e) => setReportDesc(e.target.value)}
+                        className="w-full p-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary resize-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Contact Phone Number</label>
+                      <input 
+                        type="tel" 
+                        required
+                        placeholder="e.g. +91 98765 XXXXX"
+                        value={reportContact}
+                        onChange={(e) => setReportContact(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      />
+                    </div>
+
+                    <button 
+                      type="submit"
+                      className="w-full h-11 bg-brand-primary hover:bg-brand-primary-dark text-white font-action font-extrabold text-xs rounded-xl shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
                     >
-                      <option value="Belonging">Lost Belonging</option>
-                      <option value="Person">Missing Person</option>
-                    </select>
-                  </div>
+                      <AlertTriangle size={14} />
+                      Submit Lost Report
+                    </button>
+                  </form>
+                ) : (
+                  /* Admin Found Item Posting Form */
+                  <form onSubmit={handleFoundSubmit} className="flex flex-col gap-4">
+                    <h5 className="font-sans font-extrabold text-sm text-neutral-dark flex items-center gap-2 border-b border-brand-primary-border/15 pb-3">
+                      <UserCheck size={16} className="text-saffron-dark" />
+                      Post Found Item (Admin Portal)
+                    </h5>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Name / Item Title</label>
-                    <input 
-                      type="text" 
-                      required
-                      placeholder={reportType === 'Person' ? "e.g. Ramesh Kumar" : "e.g. Black Leather Bag"}
-                      value={reportName}
-                      onChange={(e) => setReportName(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    />
-                  </div>
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Item Category</label>
+                      <select 
+                        value={foundType}
+                        onChange={(e) => setFoundType(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      >
+                        <option value="Belonging">Belonging</option>
+                        <option value="Person">Person Found / Reunited</option>
+                      </select>
+                    </div>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Last Seen Location</label>
-                    <input 
-                      type="text" 
-                      required
-                      placeholder="e.g. Sultanganj Ghat or Shivir 3"
-                      value={reportLoc}
-                      onChange={(e) => setReportLoc(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    />
-                  </div>
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Found Item Name</label>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder="e.g. Watch, Wallet, Keyring"
+                        value={foundName}
+                        onChange={(e) => setFoundName(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Description</label>
-                    <textarea 
-                      rows="3"
-                      placeholder="Add details (colour, size, last clothes worn...)"
-                      value={reportDesc}
-                      onChange={(e) => setReportDesc(e.target.value)}
-                      className="w-full p-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary resize-none"
-                    />
-                  </div>
+                    {/* Real Admin Image Upload Section */}
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Found Item Photo</label>
+                      <div className="flex items-center gap-3">
+                        <label
+                          htmlFor="found-image-input"
+                          className="flex-1 h-12 border-2 border-dashed border-brand-primary-border/40 hover:border-brand-primary rounded-xl flex items-center justify-center gap-2 text-xs font-semibold text-neutral-secondary hover:text-brand-primary bg-neutral-bg/30 transition-all cursor-pointer"
+                        >
+                          <Upload size={16} />
+                          {foundImage ? "Change Photograph" : "Choose from Device"}
+                        </label>
+                        <input 
+                          type="file"
+                          id="found-image-input"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleImageChange(e, true)}
+                        />
+                        {foundImage && (
+                          <div className="w-12 h-12 rounded-lg border border-brand-primary-border/30 overflow-hidden shrink-0">
+                            <img src={foundImage} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Contact Phone Number</label>
-                    <input 
-                      type="tel" 
-                      required
-                      placeholder="e.g. +91 98765 XXXXX"
-                      value={reportContact}
-                      onChange={(e) => setReportContact(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    />
-                  </div>
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Location Found</label>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder="e.g. Shivir 4 or Baba Temple Gate 3"
+                        value={foundLoc}
+                        onChange={(e) => setFoundLoc(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      />
+                    </div>
 
-                  <button 
-                    type="submit"
-                    className="w-full h-11 bg-brand-primary hover:bg-brand-primary-dark text-white font-action font-extrabold text-xs rounded-xl shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
-                  >
-                    <AlertTriangle size={14} />
-                    Submit Lost Report
-                  </button>
-                </form>
-              ) : (
-                /* Admin Found Item Posting Form */
-                <form onSubmit={handleFoundSubmit} className="flex flex-col gap-4">
-                  <h5 className="font-sans font-extrabold text-sm text-neutral-dark flex items-center gap-2 border-b border-brand-primary-border/15 pb-3">
-                    <UserCheck size={16} className="text-saffron-dark" />
-                    Post Found Item (Admin Portal)
-                  </h5>
+                    <div>
+                      <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Claim Status / Location</label>
+                      <select 
+                        value={foundStatus}
+                        onChange={(e) => setFoundStatus(e.target.value)}
+                        className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                      >
+                        <option value="Claimable at Helpdesk 1">Claimable at Helpdesk 1</option>
+                        <option value="Claimable at Helpdesk 2">Claimable at Helpdesk 2</option>
+                        <option value="Claimable at Helpdesk 5">Claimable at Helpdesk 5</option>
+                        <option value="Claimable at Temple Office">Claimable at Temple Office</option>
+                        <option value="Reunited Successfully!">Reunited Successfully!</option>
+                      </select>
+                    </div>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Item Category</label>
-                    <select 
-                      value={foundType}
-                      onChange={(e) => setFoundType(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
+                    <button 
+                      type="submit"
+                      className="w-full h-11 bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-extrabold text-xs rounded-xl shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
                     >
-                      <option value="Belonging">Belonging</option>
-                      <option value="Person">Person Found / Reunited</option>
-                    </select>
-                  </div>
+                      <PlusCircle size={14} />
+                      Post Found Item
+                    </button>
+                  </form>
+                )}
+              </div>
 
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Found Item Name</label>
-                    <input 
-                      type="text" 
-                      required
-                      placeholder="e.g. Watch, Wallet, Keyring"
-                      value={foundName}
-                      onChange={(e) => setFoundName(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Location Found</label>
-                    <input 
-                      type="text" 
-                      required
-                      placeholder="e.g. Shivir 4 or Baba Temple Gate 3"
-                      value={foundLoc}
-                      onChange={(e) => setFoundLoc(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[10px] uppercase text-neutral-secondary font-bold block mb-1">Claim Status / Location</label>
-                    <select 
-                      value={foundStatus}
-                      onChange={(e) => setFoundStatus(e.target.value)}
-                      className="w-full h-10 px-3 bg-neutral-bg border border-brand-primary-border/20 rounded-lg text-xs focus:outline-none focus:border-brand-primary"
-                    >
-                      <option value="Claimable at Helpdesk 1">Claimable at Helpdesk 1</option>
-                      <option value="Claimable at Helpdesk 2">Claimable at Helpdesk 2</option>
-                      <option value="Claimable at Helpdesk 5">Claimable at Helpdesk 5</option>
-                      <option value="Claimable at Temple Office">Claimable at Temple Office</option>
-                      <option value="Reunited Successfully!">Reunited Successfully!</option>
-                    </select>
-                  </div>
-
-                  <button 
-                    type="submit"
-                    className="w-full h-11 bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-extrabold text-xs rounded-xl shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
-                  >
-                    <PlusCircle size={14} />
-                    Post Found Item
-                  </button>
-                </form>
-              )}
-
-            </div>
-
-            {/* Column 2: Dashboard Boards (Active Lost Reports & Recently Found Board) */}
-            <div className="flex-1 w-full flex flex-col gap-6">
-              
-              {/* Recently Found Board */}
-              <div className="bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm flex flex-col gap-4 text-left">
+              {/* Recently Found Board (Admin posts) */}
+              <div className="flex-1 w-full bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm flex flex-col gap-4 text-left">
                 <h5 className="font-sans font-extrabold text-sm text-neutral-dark border-b border-brand-primary-border/15 pb-2">
                   Recently Found Board (Active Claims)
                 </h5>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                   {foundItems.map(item => (
-                    <div key={item.id} className="p-4 bg-neutral-bg/60 border border-brand-primary-border/10 rounded-xl flex flex-col justify-between hover:border-brand-primary-border/30 transition-all">
-                      <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-sans font-extrabold text-xs text-neutral-dark">{item.name}</span>
-                          <span className={`text-[8px] font-extrabold px-2 py-0.5 rounded uppercase ${
-                            item.type === 'Person' ? 'bg-emerald-50 text-emerald-700' : 'bg-brand-primary-light text-brand-primary'
-                          }`}>
-                            {item.type}
-                          </span>
+                    <div key={item.id} className="border border-brand-primary-border/15 rounded-2xl overflow-hidden flex flex-col hover:border-brand-primary-border/30 transition-all bg-neutral-bg/30 h-full">
+                      
+                      {/* Image Header */}
+                      <div className="w-full h-32 bg-neutral-bg-cool relative">
+                        {item.image ? (
+                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-neutral-secondary">
+                            <ImageIcon size={28} />
+                          </div>
+                        )}
+                        <span className={`absolute top-3 right-3 text-[8px] font-extrabold px-2 py-0.5 rounded shadow-sm uppercase ${
+                          item.type === 'Person' ? 'bg-emerald-500 text-white' : 'bg-brand-primary text-white'
+                        }`}>
+                          {item.type}
+                        </span>
+                      </div>
+
+                      {/* Content details */}
+                      <div className="p-4 flex flex-col justify-between flex-1">
+                        <div>
+                          <span className="font-sans font-extrabold text-xs text-neutral-dark block mb-0.5">{item.name}</span>
+                          <p className="text-[10px] text-neutral-secondary font-semibold">Found at: {item.location}</p>
                         </div>
-                        <p className="text-[10px] text-neutral-secondary font-semibold">Found at: {item.location}</p>
+                        <div className="mt-3 flex items-center gap-1.5 text-xs font-extrabold text-brand-primary">
+                          <CheckCircle2 size={14} className="text-emerald-500" />
+                          {item.status}
+                        </div>
                       </div>
-                      <div className="mt-3 flex items-center gap-1.5 text-[9px] font-bold text-brand-primary">
-                        <CheckCircle2 size={12} className="text-emerald-500" />
-                        {item.status}
-                      </div>
+
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Active Lost Reports List */}
-              <div className="bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm flex flex-col gap-4 text-left">
-                <h5 className="font-sans font-extrabold text-sm text-neutral-dark border-b border-brand-primary-border/15 pb-2">
-                  Active Missing / Lost Reports
-                </h5>
-                
-                <div className="flex flex-col gap-3">
-                  {lostReports.length > 0 ? (
-                    lostReports.map(report => (
-                      <div key={report.id} className="p-4 border border-brand-primary-border/10 rounded-xl hover:border-brand-primary-border/30 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
+            </div>
+
+            {/* ROW 2: Active Missing / Lost Reports Section Only (Full Width Grid) */}
+            <div className="w-full bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm flex flex-col gap-4 text-left">
+              <h5 className="font-sans font-extrabold text-sm text-neutral-dark border-b border-brand-primary-border/15 pb-2">
+                Active Missing / Lost Reports
+              </h5>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {lostReports.length > 0 ? (
+                  lostReports.map(report => (
+                    <div key={report.id} className="p-4 border border-brand-primary-border/10 rounded-2xl hover:border-brand-primary-border/30 transition-all flex flex-col gap-4 bg-neutral-bg/25">
+                      <div className="flex items-center gap-3.5 w-full">
+                        
+                        {/* Image Thumbnail */}
+                        <div className="w-14 h-14 rounded-xl border border-brand-primary-border/15 overflow-hidden shrink-0 bg-neutral-bg flex items-center justify-center text-neutral-secondary">
+                          {report.image ? (
+                            <img src={report.image} alt={report.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <ImageIcon size={18} />
+                          )}
+                        </div>
+
+                        <div className="text-left flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
                             <span className="font-sans font-extrabold text-xs text-neutral-dark">{report.name}</span>
                             <span className={`text-[8px] font-extrabold px-1.5 py-0.25 rounded uppercase ${
                               report.type === 'Person' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'
@@ -371,20 +518,22 @@ export default function FacilitiesGrid({ isHome = false }) {
                             </span>
                           </div>
                           <p className="text-[10px] text-neutral-secondary font-semibold">Last Location: {report.location} | Date: {report.date}</p>
-                          {report.desc && <p className="text-[10px] text-neutral-secondary mt-1 font-medium">{report.desc}</p>}
+                          {report.desc && <p className="text-[10px] text-neutral-secondary mt-1.5 font-medium leading-relaxed">{report.desc}</p>}
                         </div>
-                        <div className="shrink-0 text-left md:text-right border-t md:border-t-0 pt-2.5 md:pt-0 border-neutral-bg-cool">
+                      </div>
+
+                      <div className="border-t border-neutral-bg-cool pt-3 flex justify-between items-center w-full">
+                        <div>
                           <p className="text-[9px] uppercase text-neutral-secondary font-bold leading-none">Contact Person</p>
                           <a href={`tel:${report.contact}`} className="text-xs font-mono font-bold text-brand-primary hover:underline">{report.contact}</a>
                         </div>
                       </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-neutral-secondary p-4 text-center">No lost reports filed yet.</p>
-                  )}
-                </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-neutral-secondary p-4 col-span-2 text-center">No lost reports filed yet.</p>
+                )}
               </div>
-
             </div>
 
           </div>

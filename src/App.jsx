@@ -5,7 +5,6 @@ import HeroSection from './components/HeroSection';
 import LiveStatus from './components/LiveStatus';
 import WisdomCard from './components/WisdomCard';
 import FacilitiesGrid from './components/FacilitiesGrid';
-import RegisterForm from './components/RegisterForm';
 import MelaHelpline from './components/MelaHelpline';
 import HealthCentre from './components/HealthCentre';
 import Notification from './components/Notification';
@@ -30,15 +29,31 @@ function HomeTab() {
 
 function FacilitiesTab() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="text-left mb-2">
-        <h3 className="font-sans font-extrabold text-xl text-neutral-dark">
-          Explore Yatra Facilities
-        </h3>
-        <p className="text-xs text-neutral-secondary mt-1">
-          Access free services, medical help, food distribution centers, and shelters set up for devotees.
-        </p>
+    <div className="flex flex-col gap-8">
+      {/* Hero Banner Header copied from Helpline top box design */}
+      <div className="relative w-full h-80 md:h-72 lg:h-96 rounded-3xl overflow-hidden shadow-md flex items-end p-8 md:p-12">
+        {/* Background Image */}
+        <img 
+          src="/deoghar_temple.jpg" 
+          alt="Deoghar Temple Sunset"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark/95 via-brand-primary-dark/45 to-transparent z-10" />
+        
+        {/* Content Container */}
+        <div className="relative z-20 flex flex-col md:flex-row md:items-end justify-between w-full gap-4 text-left">
+          <div className="max-w-xl">
+            <h3 className="font-sans font-black text-2xl md:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
+              Explore Yatra Facilities
+            </h3>
+            <p className="text-xs md:text-sm text-brand-primary-light/90 mt-2 leading-relaxed font-semibold">
+              Access free services, medical help, food distribution centers, and shelters set up for devotees.
+            </p>
+          </div>
+        </div>
       </div>
+
       <FacilitiesGrid />
     </div>
   );
@@ -50,7 +65,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeTab />} />
-          <Route path="register" element={<RegisterForm />} />
           <Route path="helpline" element={<MelaHelpline />} />
           <Route path="health" element={<HealthCentre />} />
           <Route path="facilities" element={<FacilitiesTab />} />

@@ -35,7 +35,7 @@ export default function MelaHelpline() {
     <div className="w-full flex flex-col gap-8 text-left animate-fade-in">
       
       {/* Hero Banner Header with Image and Gradient Overlay */}
-      <div className="relative w-full h-64 md:h-56 rounded-3xl overflow-hidden shadow-md flex items-end p-6 md:p-8">
+      <div className="relative w-full h-80 md:h-72 lg:h-96 rounded-3xl overflow-hidden shadow-md flex items-end p-8 md:p-12">
         {/* Background Image */}
         <img 
           src="/deoghar_temple.jpg" 

@@ -1,7 +1,9 @@
-import React from 'react';
-import { Scan, Calendar, MapPin } from 'lucide-react';
+import React, { useState } from 'react';
+import { Scan, Calendar, MapPin, X } from 'lucide-react';
 
 export default function HeroSection() {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
   return (
     <div className="relative w-full h-[450px] rounded-2xl overflow-hidden shadow-lg group">
       {/* Background Image */}
@@ -45,18 +47,45 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-4">
-          <button className="flex items-center gap-2 bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-semibold text-sm px-6 py-3 rounded-lg shadow-lg hover:shadow-saffron/25 transition-all duration-300 transform hover:-translate-y-0.5">
-            Register for Yatra
-          </button>
-          
-          <button className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-sm text-white transition-all duration-300 hover:scale-105 group/play shadow-md">
-            <Scan size={18} fill="white" className="ml-0.5 transition-transform duration-300 group-hover/play:scale-110" />
-          </button>
-        </div>
-
       </div>
+
+      {/* Floating Scan Button on Bottom-Right */}
+      <button 
+        onClick={() => setIsPreviewOpen(true)}
+        className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 border border-white/30 backdrop-blur-sm text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg active:scale-95 cursor-pointer group"
+        title="Preview Background Image"
+      >
+        <Scan size={18} className="text-white transition-transform duration-300 group-hover:rotate-90" />
+      </button>
+
+      {/* Image Preview Modal */}
+      {isPreviewOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-fade-in"
+          onClick={() => setIsPreviewOpen(false)}
+        >
+          {/* Close button */}
+          <button 
+            onClick={() => setIsPreviewOpen(false)}
+            className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-all cursor-pointer"
+            title="Close Preview"
+          >
+            <X size={24} />
+          </button>
+
+          {/* Centered Image */}
+          <div 
+            className="relative max-w-5xl w-full max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
+          >
+            <img 
+              src="/deoghar_temple.jpg" 
+              alt="Baba Baidyanath Temple Full Preview" 
+              className="max-w-full max-h-[80vh] object-contain rounded-xl"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

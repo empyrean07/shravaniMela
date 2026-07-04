@@ -34,7 +34,6 @@
   }
 }
 
-/* Hide scrollbar utility for general elements */
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */

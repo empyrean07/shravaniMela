@@ -117,26 +117,39 @@ export default function HealthCentre() {
   return (
     <div className="w-full flex flex-col gap-8 text-left animate-fade-in">
       
-      {/* Header Banner with Background Image */}
-      <div className="relative w-full overflow-hidden border border-brand-primary-border/25 rounded-3xl py-12 md:py-16 px-8 md:px-12 flex flex-col justify-center gap-4 shadow-sm min-h-[220px] md:min-h-[260px]">
-        
+      {/* Hero Banner Header copied from Mela Helpline top box design */}
+      <div className="relative w-full h-80 md:h-72 lg:h-96 rounded-3xl overflow-hidden shadow-md flex items-end p-8 md:p-12">
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-35 select-none pointer-events-none z-0"
-          style={{ backgroundImage: `url('/deoghar_temple.jpg')` }}
+        <img 
+          src="/deoghar_temple.jpg" 
+          alt="Deoghar Temple Sunset"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-
-        {/* Ambient Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary-light/95 via-brand-primary-light/80 to-brand-primary-light/50 z-0" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark/95 via-brand-primary-dark/45 to-transparent z-10" />
         
-        {/* Header Content */}
-        <div className="relative z-10 text-left max-w-2xl">
-          <h3 className="font-sans font-extrabold text-3xl md:text-4xl text-neutral-dark">
-            Health Centre
-          </h3>
-          <p className="text-sm md:text-base text-neutral-secondary mt-3 leading-relaxed font-semibold">
-            Access free medical checkups and view personalized medical support options near your current geographical position.
-          </p>
+        {/* Content Container */}
+        <div className="relative z-20 flex flex-col lg:flex-row lg:items-end justify-between w-full gap-6 text-left">
+          <div className="max-w-xl">
+            <h3 className="font-sans font-black text-2xl md:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
+              Health Centre
+            </h3>
+            <p className="text-xs md:text-sm text-brand-primary-light/90 mt-2 leading-relaxed font-semibold">
+              Access free medical checkups and view personalized medical support options near your current geographical position.
+            </p>
+          </div>
+          
+          {/* GPS Locate Button inside the banner */}
+          <div className="relative shrink-0 flex items-center w-full lg:w-auto justify-end">
+            <button 
+              onClick={requestLocation}
+              disabled={isLocating}
+              className="flex items-center gap-2 bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-extrabold text-xs px-5 py-3 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 shrink-0"
+            >
+              <Navigation size={14} className={isLocating ? "animate-spin" : ""} />
+              {isLocating ? "Locating..." : "Use My GPS Location"}
+            </button>
+          </div>
         </div>
       </div>
 

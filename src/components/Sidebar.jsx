@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, UserPlus, Phone, HeartPulse, Compass, CloudSun, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Phone, HeartPulse, Compass, CloudSun, Menu, ChevronLeft, ChevronRight, Flame } from 'lucide-react';
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -8,7 +8,6 @@ export default function Sidebar() {
 
   const menuItems = [
     { id: 'home', label: 'Home', path: '/', icon: Home },
-    { id: 'register', label: 'Register Yourself', path: '/register', icon: UserPlus },
     { id: 'helpline', label: 'Mela Helpline', path: '/helpline', icon: Phone },
     { id: 'health', label: 'Health Centre', path: '/health', icon: HeartPulse },
     { id: 'facilities', label: 'Facilities & Services', path: '/facilities', icon: Compass },
@@ -38,10 +37,10 @@ export default function Sidebar() {
           /* Mobile styling: Floating drawer on small screens, otherwise collapsed strip */
           ${isMobileOpen 
             ? 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] translate-x-0 shadow-2xl' 
-            : 'fixed top-0 left-0 w-[280px] sm:w-[320px] max-w-[85vw] -translate-x-full md:translate-x-0 md:relative'
+            : 'fixed top-0 left-0 w-16 -translate-x-full md:translate-x-0 md:relative'
           }
           /* Desktop styling: Toggle between 320px and 80px */
-          ${!isMobileOpen && (isCollapsed ? 'md:w-20 md:max-w-none' : 'md:w-[320px] md:max-w-none')}
+          ${!isMobileOpen && (isCollapsed ? 'md:w-20' : 'md:w-[320px]')}
         `}
       >
         
@@ -50,10 +49,10 @@ export default function Sidebar() {
           ${isCollapsed ? 'p-4 items-center' : 'p-6 sm:p-8'}
         `}>
           
-          {/* Logo & Branding */}
+          {/* Logo & Branding - Replaced Compass with Flame Devotional Icon */}
           <div className={`flex items-center gap-3 ${isCollapsed ? 'flex-col' : ''}`}>
             <div className="w-12 h-12 rounded-xl bg-brand-primary flex items-center justify-center text-white shadow-md shadow-brand-primary/20 shrink-0">
-              <Compass size={24} className="text-saffron animate-spin-slow" />
+              <Flame size={24} className="text-saffron fill-saffron animate-pulse" />
             </div>
             
             {!isCollapsed && (

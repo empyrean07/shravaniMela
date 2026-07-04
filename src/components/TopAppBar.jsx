@@ -8,12 +8,12 @@ export default function TopAppBar({ unreadCount = 0 }) {
       
       {/* Page Title / Brand */}
       <div className="flex items-center gap-4">
-        <h2 className="font-sans font-extrabold text-sm md:text-lg text-neutral-dark">
+        <h2 className="font-sans font-black text-lg md:text-2xl text-neutral-dark tracking-tight">
           Shravani Mela Portal
         </h2>
       </div>
 
-      {/* Actions (Search, Notification, User Profile) */}
+      {/* Actions (Search, Notification) */}
       <div className="flex items-center gap-6">
         
         {/* Search Bar */}
@@ -21,7 +21,7 @@ export default function TopAppBar({ unreadCount = 0 }) {
           <input 
             type="text" 
             placeholder="Search resources, status, camps..." 
-            className="w-64 h-9 bg-neutral-bg border border-brand-primary-border/30 rounded-lg pl-9 pr-4 text-xs font-sans focus:outline-none focus:border-brand-primary transition-all duration-200"
+            className="w-64 h-9 bg-neutral-bg border border-brand-primary-border/30 rounded-lg pl-9 pr-4 text-xs font-sans text-neutral-dark focus:outline-none focus:border-brand-primary transition-all duration-200"
           />
           <Search size={14} className="absolute left-3 top-2.5 text-neutral-secondary" />
         </div>
@@ -37,17 +37,6 @@ export default function TopAppBar({ unreadCount = 0 }) {
             <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-saffron border-2 border-white rounded-full animate-pulse" />
           )}
         </Link>
-
-        {/* User Profile Info Widget */}
-        <div className="flex items-center gap-3 bg-neutral-bg border border-brand-primary-border/25 rounded-full pl-2 pr-4 py-1.5 hover:bg-neutral-bg-cool/30 cursor-pointer transition-all duration-200">
-          <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-inner font-semibold text-sm">
-            A
-          </div>
-          <div className="text-left hidden sm:block">
-            <p className="text-xs font-bold text-neutral-dark leading-tight">Abhishek Kumar</p>
-            <p className="text-[10px] text-neutral-secondary font-medium leading-none">Pilgrim Id: #9042</p>
-          </div>
-        </div>
 
       </div>
 
