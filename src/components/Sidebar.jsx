@@ -49,7 +49,7 @@ export default function Sidebar() {
       {/* Mobile Toggle Button - Floating strip on mobile to open drawer */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-40 p-2.5 bg-brand-primary text-white rounded-xl shadow-lg border border-brand-primary-border/20 flex items-center justify-center hover:bg-brand-primary-dark transition-all active:scale-95"
+        className="md:hidden fixed top-3 left-6 z-40 p-2.5 bg-brand-primary text-white rounded-xl shadow-lg border border-brand-primary-border/20 flex items-center justify-center hover:bg-brand-primary-dark transition-all active:scale-95"
       >
         <Menu size={20} />
       </button>

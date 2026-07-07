@@ -36,7 +36,7 @@ export default function Layout() {
           "Expect light rain showers in the Deoghar area by 4:00 PM. Yatris are advised to carry water-resistant gear and stay hydrated.",
         time: "2 hours ago",
         type: "info",
-        unread: false,
+        unread: true,
         sender: "Meteorological Dept",
       },
       {

@@ -290,7 +290,7 @@ export default function TopAppBar({ unreadCount = 0 }) {
         );
 
   return (
-    <header className="h-16 border-b border-brand-primary-border/20 bg-white flex items-center justify-between px-8 max-md:pl-18 shrink-0 relative">
+    <header className="h-16 border-b border-brand-primary-border/20 bg-white flex items-center justify-between px-8 max-md:pl-20 shrink-0 relative">
       {/* Page Title / Brand */}
       <div className="flex items-center gap-4">
         <h2 className="font-sans font-black text-lg md:text-2xl text-neutral-dark tracking-tight">
