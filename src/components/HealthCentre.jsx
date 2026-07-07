@@ -1,9 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { HeartPulse, MapPin, CheckCircle, Search, Phone, Compass, Globe2, Coins, FolderHeart, ShieldAlert, Navigation } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  HeartPulse,
+  MapPin,
+  CheckCircle,
+  Search,
+  Phone,
+  Compass,
+  Globe2,
+  Coins,
+  FolderHeart,
+  ShieldAlert,
+  Navigation,
+} from "lucide-react";
 
 export default function HealthCentre() {
   const [selectedMilestone, setSelectedMilestone] = useState(0); // index of milestones
-  const [filterQuery, setFilterQuery] = useState('');
+  const [filterQuery, setFilterQuery] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [gpsError, setGpsError] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
@@ -13,43 +25,192 @@ export default function HealthCentre() {
     { name: "Asarganj", km: 26, desc: "First Major Rest Zone" },
     { name: "Katoria", km: 64, desc: "Hilly Sand Pathway" },
     { name: "Dharamsala", km: 88, desc: "Bihar-Jharkhand Border" },
-    { name: "Deoghar", km: 105, desc: "Baba Dham Temple Destination" }
+    { name: "Deoghar", km: 105, desc: "Baba Dham Temple Destination" },
   ];
 
   // Complete list of medical centers along the way with coordinates
   const medicalCenters = [
-    { id: 1, name: "Ghat Main Medical Unit", milestone: "Sultanganj", km: 0.5, lat: 25.2476, lon: 86.7381, beds: 12, doctors: 3, phone: "+91-6415-222402", type: "First Aid & Stabilization", facilities: ["Oxygen Supply", "ECG", "Basic Trauma Support"], status: "Optimal" },
-    { id: 2, name: "Sultanganj Referral Hospital", milestone: "Sultanganj", km: 1.5, lat: 25.2435, lon: 86.7312, beds: 50, doctors: 8, phone: "+91-6415-222401", type: "Government General Hospital", facilities: ["ICU", "Surgeries", "Ambulance Hub", "Lab Services"], status: "Optimal" },
-    
-    { id: 3, name: "Asarganj Camp Hospital", milestone: "Asarganj", km: 26.2, lat: 25.1481, lon: 86.6841, beds: 15, doctors: 4, phone: "+91-98765-43201", type: "Yatra Transit Camp", facilities: ["Rehydration Center", "Basic Wards", "First Aid"], status: "Optimal" },
-    { id: 4, name: "Kumarpur Health Post", milestone: "Asarganj", km: 29.5, lat: 25.1215, lon: 86.6912, beds: 6, doctors: 1, phone: "+91-98765-43202", type: "First Aid Station", facilities: ["Physiotherapy", "Hydration Points"], status: "Busy" },
+    {
+      id: 1,
+      name: "Ghat Main Medical Unit",
+      milestone: "Sultanganj",
+      km: 0.5,
+      lat: 25.2476,
+      lon: 86.7381,
+      beds: 12,
+      doctors: 3,
+      phone: "+91-6415-222402",
+      type: "First Aid & Stabilization",
+      facilities: ["Oxygen Supply", "ECG", "Basic Trauma Support"],
+      status: "Optimal",
+    },
+    {
+      id: 2,
+      name: "Sultanganj Referral Hospital",
+      milestone: "Sultanganj",
+      km: 1.5,
+      lat: 25.2435,
+      lon: 86.7312,
+      beds: 50,
+      doctors: 8,
+      phone: "+91-6415-222401",
+      type: "Government General Hospital",
+      facilities: ["ICU", "Surgeries", "Ambulance Hub", "Lab Services"],
+      status: "Optimal",
+    },
 
-    { id: 5, name: "Katoria Trauma & Recovery Camp", milestone: "Katoria", km: 64.0, lat: 24.8194, lon: 86.7214, beds: 20, doctors: 5, phone: "+91-98765-43203", type: "Specialized Trauma Hub", facilities: ["ICU", "X-Ray", "Orthopedic Care", "Cardiac Support"], status: "Optimal" },
-    { id: 6, name: "Inaravaran Emergency Post", milestone: "Katoria", km: 68.1, lat: 24.7512, lon: 86.7112, beds: 8, doctors: 2, phone: "+91-98765-43204", type: "First Aid Station", facilities: ["Rehydration Center", "Emergency Beds"], status: "Optimal" },
+    {
+      id: 3,
+      name: "Asarganj Camp Hospital",
+      milestone: "Asarganj",
+      km: 26.2,
+      lat: 25.1481,
+      lon: 86.6841,
+      beds: 15,
+      doctors: 4,
+      phone: "+91-98765-43201",
+      type: "Yatra Transit Camp",
+      facilities: ["Rehydration Center", "Basic Wards", "First Aid"],
+      status: "Optimal",
+    },
+    {
+      id: 4,
+      name: "Kumarpur Health Post",
+      milestone: "Asarganj",
+      km: 29.5,
+      lat: 25.1215,
+      lon: 86.6912,
+      beds: 6,
+      doctors: 1,
+      phone: "+91-98765-43202",
+      type: "First Aid Station",
+      facilities: ["Physiotherapy", "Hydration Points"],
+      status: "Busy",
+    },
 
-    { id: 7, name: "Dharamsala Border Post", milestone: "Dharamsala", km: 88.5, lat: 24.6033, lon: 86.6719, beds: 12, doctors: 3, phone: "+91-6434-222002", type: "Border Checkpost Hospital", facilities: ["Ambulance Station", "Oxygen Wards", "Basic Care"], status: "Optimal" },
-    { id: 8, name: "Dumka Checkpost Unit", milestone: "Dharamsala", km: 92.0, lat: 24.5812, lon: 86.6812, beds: 5, doctors: 1, phone: "+91-98765-43205", type: "First Aid Station", facilities: ["Basic Wound Dressings", "Hydration Support"], status: "Busy" },
+    {
+      id: 5,
+      name: "Katoria Trauma & Recovery Camp",
+      milestone: "Katoria",
+      km: 64.0,
+      lat: 24.8194,
+      lon: 86.7214,
+      beds: 20,
+      doctors: 5,
+      phone: "+91-98765-43203",
+      type: "Specialized Trauma Hub",
+      facilities: ["ICU", "X-Ray", "Orthopedic Care", "Cardiac Support"],
+      status: "Optimal",
+    },
+    {
+      id: 6,
+      name: "Inaravaran Emergency Post",
+      milestone: "Katoria",
+      km: 68.1,
+      lat: 24.7512,
+      lon: 86.7112,
+      beds: 8,
+      doctors: 2,
+      phone: "+91-98765-43204",
+      type: "First Aid Station",
+      facilities: ["Rehydration Center", "Emergency Beds"],
+      status: "Optimal",
+    },
 
-    { id: 9, name: "Baba Dham Entry Camp", milestone: "Deoghar", km: 104.8, lat: 24.4925, lon: 86.7081, beds: 15, doctors: 4, phone: "+91-6432-222261", type: "Yatra Terminus Hospital", facilities: ["Heat Stroke Ward", "First Aid", "Oxygen Hub"], status: "Optimal" },
-    { id: 10, name: "Deoghar Sadar Hospital", milestone: "Deoghar", km: 106.5, lat: 24.4819, lon: 86.7029, beds: 150, doctors: 25, phone: "+91-6432-222260", type: "District Referral Hospital", facilities: ["Major Surgery", "Emergency ICU", "Blood Bank", "Diagnostics"], status: "Optimal" }
+    {
+      id: 7,
+      name: "Dharamsala Border Post",
+      milestone: "Dharamsala",
+      km: 88.5,
+      lat: 24.6033,
+      lon: 86.6719,
+      beds: 12,
+      doctors: 3,
+      phone: "+91-6434-222002",
+      type: "Border Checkpost Hospital",
+      facilities: ["Ambulance Station", "Oxygen Wards", "Basic Care"],
+      status: "Optimal",
+    },
+    {
+      id: 8,
+      name: "Dumka Checkpost Unit",
+      milestone: "Dharamsala",
+      km: 92.0,
+      lat: 24.5812,
+      lon: 86.6812,
+      beds: 5,
+      doctors: 1,
+      phone: "+91-98765-43205",
+      type: "First Aid Station",
+      facilities: ["Basic Wound Dressings", "Hydration Support"],
+      status: "Busy",
+    },
+
+    {
+      id: 9,
+      name: "Baba Dham Entry Camp",
+      milestone: "Deoghar",
+      km: 104.8,
+      lat: 24.4925,
+      lon: 86.7081,
+      beds: 15,
+      doctors: 4,
+      phone: "+91-6432-222261",
+      type: "Yatra Terminus Hospital",
+      facilities: ["Heat Stroke Ward", "First Aid", "Oxygen Hub"],
+      status: "Optimal",
+    },
+    {
+      id: 10,
+      name: "Deoghar Sadar Hospital",
+      milestone: "Deoghar",
+      km: 106.5,
+      lat: 24.4819,
+      lon: 86.7029,
+      beds: 150,
+      doctors: 25,
+      phone: "+91-6432-222260",
+      type: "District Referral Hospital",
+      facilities: [
+        "Major Surgery",
+        "Emergency ICU",
+        "Blood Bank",
+        "Diagnostics",
+      ],
+      status: "Optimal",
+    },
   ];
 
   const quickInfos = [
-    { title: "Multilingual Support", desc: "Doctors available in Hindi, English, Maithili & Bengali.", icon: Globe2 },
-    { title: "Free Treatment", desc: "All services & medicines are free for registered Yatris.", icon: Coins },
-    { title: "Health Records", desc: "Access your mela checkup history via Registration ID.", icon: FolderHeart }
+    {
+      title: "Multilingual Support",
+      desc: "Doctors available in Hindi, English, Maithili & Bengali.",
+      icon: Globe2,
+    },
+    {
+      title: "Free Treatment",
+      desc: "All services & medicines are free for registered Yatris.",
+      icon: Coins,
+    },
+    {
+      title: "Health Records",
+      desc: "Access your mela checkup history via Registration ID.",
+      icon: FolderHeart,
+    },
   ];
 
   // Haversine distance calculator
   const calculateHaversine = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
 
@@ -66,16 +227,18 @@ export default function HealthCentre() {
       (position) => {
         setUserCoords({
           lat: position.coords.latitude,
-          lon: position.coords.longitude
+          lon: position.coords.longitude,
         });
         setIsLocating(false);
       },
       (error) => {
         console.error("GPS Error:", error);
-        setGpsError("Could not retrieve GPS location. Using manual checkpoint.");
+        setGpsError(
+          "Could not retrieve GPS location. Using manual checkpoint.",
+        );
         setIsLocating(false);
       },
-      { enableHighAccuracy: true, timeout: 8000 }
+      { enableHighAccuracy: true, timeout: 8000 },
     );
   };
 
@@ -86,48 +249,55 @@ export default function HealthCentre() {
 
   // Compute distances for all camps
   const currentKm = milestones[selectedMilestone].km;
-  
-  const processedCenters = medicalCenters.map(center => {
-    let distanceValue = 0;
-    let isRealGps = false;
 
-    if (userCoords) {
-      distanceValue = calculateHaversine(userCoords.lat, userCoords.lon, center.lat, center.lon);
-      isRealGps = true;
-    } else {
-      distanceValue = Math.abs(center.km - currentKm);
-      isRealGps = false;
-    }
+  const processedCenters = medicalCenters
+    .map((center) => {
+      let distanceValue = 0;
+      let isRealGps = false;
 
-    return { 
-      ...center, 
-      distance: parseFloat(distanceValue.toFixed(1)), 
-      isRealGps 
-    };
-  }).sort((a, b) => a.distance - b.distance); // sort by closest first
+      if (userCoords) {
+        distanceValue = calculateHaversine(
+          userCoords.lat,
+          userCoords.lon,
+          center.lat,
+          center.lon,
+        );
+        isRealGps = true;
+      } else {
+        distanceValue = Math.abs(center.km - currentKm);
+        isRealGps = false;
+      }
+
+      return {
+        ...center,
+        distance: parseFloat(distanceValue.toFixed(1)),
+        isRealGps,
+      };
+    })
+    .sort((a, b) => a.distance - b.distance); // sort by closest first
 
   const advisedCamp = processedCenters[0];
 
-  const filteredCenters = processedCenters.filter(center => 
-    center.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
-    center.type.toLowerCase().includes(filterQuery.toLowerCase()) ||
-    center.milestone.toLowerCase().includes(filterQuery.toLowerCase())
+  const filteredCenters = processedCenters.filter(
+    (center) =>
+      center.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
+      center.type.toLowerCase().includes(filterQuery.toLowerCase()) ||
+      center.milestone.toLowerCase().includes(filterQuery.toLowerCase()),
   );
 
   return (
     <div className="w-full flex flex-col gap-8 text-left animate-fade-in">
-      
       {/* Hero Banner Header copied from Mela Helpline top box design */}
       <div className="relative w-full h-80 md:h-72 lg:h-96 rounded-3xl overflow-hidden shadow-md flex items-end p-8 md:p-12">
         {/* Background Image */}
-        <img 
-          src="/deoghar_temple.jpg" 
+        <img
+          src="/deoghar_temple.jpg"
           alt="Deoghar Temple Sunset"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark/95 via-brand-primary-dark/45 to-transparent z-10" />
-        
+
         {/* Content Container */}
         <div className="relative z-20 flex flex-col lg:flex-row lg:items-end justify-between w-full gap-6 text-left">
           <div className="max-w-xl">
@@ -135,18 +305,22 @@ export default function HealthCentre() {
               Health Centre
             </h3>
             <p className="text-xs md:text-sm text-brand-primary-light/90 mt-2 leading-relaxed font-semibold">
-              Access free medical checkups and view personalized medical support options near your current geographical position.
+              Access free medical checkups and view personalized medical support
+              options near your current geographical position.
             </p>
           </div>
-          
+
           {/* GPS Locate Button inside the banner */}
           <div className="relative shrink-0 flex items-center w-full lg:w-auto justify-end">
-            <button 
+            <button
               onClick={requestLocation}
               disabled={isLocating}
               className="flex items-center gap-2 bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-extrabold text-xs px-5 py-3 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 shrink-0"
             >
-              <Navigation size={14} className={isLocating ? "animate-spin" : ""} />
+              <Navigation
+                size={14}
+                className={isLocating ? "animate-spin" : ""}
+              />
               {isLocating ? "Locating..." : "Use My GPS Location"}
             </button>
           </div>
@@ -158,7 +332,7 @@ export default function HealthCentre() {
         <div className="bg-brand-primary-dark text-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center shadow-lg border border-brand-primary-border/10 relative overflow-hidden">
           {/* Decorative glow */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-saffron/10 rounded-full blur-3xl pointer-events-none transform translate-x-1/3 -translate-y-1/3" />
-          
+
           <div className="flex-1 text-left relative z-10">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="flex items-center gap-1 bg-saffron text-brand-saffron-bg-dark text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
@@ -166,9 +340,13 @@ export default function HealthCentre() {
                 Advised Nearest Camp
               </span>
               {advisedCamp.isRealGps ? (
-                <span className="bg-white/15 text-brand-primary-light border border-white/10 text-[9px] font-bold px-2 py-0.5 rounded-md">Matched via GPS</span>
+                <span className="bg-white/15 text-brand-primary-light border border-white/10 text-[9px] font-bold px-2 py-0.5 rounded-md">
+                  Matched via GPS
+                </span>
               ) : (
-                <span className="bg-white/15 text-brand-primary-light border border-white/10 text-[9px] font-bold px-2 py-0.5 rounded-md font-sans">Matched via {milestones[selectedMilestone].name}</span>
+                <span className="bg-white/15 text-brand-primary-light border border-white/10 text-[9px] font-bold px-2 py-0.5 rounded-md font-sans">
+                  Matched via {milestones[selectedMilestone].name}
+                </span>
               )}
             </div>
 
@@ -180,27 +358,41 @@ export default function HealthCentre() {
             <p className="text-saffron font-bold text-sm md:text-base mb-4 flex items-center gap-1.5">
               <MapPin size={16} />
               {advisedCamp.distance} km away from your current location
-              <span className="text-brand-primary-light/65 font-medium text-xs">({advisedCamp.milestone} checkpoint)</span>
+              <span className="text-brand-primary-light/65 font-medium text-xs">
+                ({advisedCamp.milestone} checkpoint)
+              </span>
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs text-brand-primary-light mt-2 border-t border-brand-primary-border/15 pt-4">
               <div>
-                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">Camp Category</span>
-                <span className="text-white font-semibold">{advisedCamp.type}</span>
+                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">
+                  Camp Category
+                </span>
+                <span className="text-white font-semibold">
+                  {advisedCamp.type}
+                </span>
               </div>
               <div>
-                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">Beds Available</span>
-                <span className="text-white font-semibold">{advisedCamp.beds} Beds</span>
+                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">
+                  Beds Available
+                </span>
+                <span className="text-white font-semibold">
+                  {advisedCamp.beds} Beds
+                </span>
               </div>
               <div>
-                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">Active Staff</span>
-                <span className="text-white font-semibold">{advisedCamp.doctors} Doctors on duty</span>
+                <span className="text-[10px] uppercase text-brand-primary-light/50 font-bold block mb-0.5">
+                  Active Staff
+                </span>
+                <span className="text-white font-semibold">
+                  {advisedCamp.doctors} Doctors on duty
+                </span>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-3 w-full md:w-auto shrink-0 relative z-10 border-t md:border-t-0 pt-4 md:pt-0 border-brand-primary-border/15">
-            <a 
+            <a
               href={`tel:${advisedCamp.phone}`}
               className="bg-saffron hover:bg-saffron-dark text-brand-saffron-bg-dark font-action font-extrabold text-xs px-6 py-3 rounded-xl shadow-md hover:shadow-saffron/20 transition-all text-center flex items-center justify-center gap-2"
             >
@@ -214,13 +406,14 @@ export default function HealthCentre() {
       {gpsError && (
         <div className="bg-amber-50 border border-amber-200/50 rounded-xl p-4 text-xs text-amber-800 flex items-center gap-2">
           <Info size={16} className="shrink-0 text-amber-600" />
-          <span>{gpsError} Change station using the dropdown in the header banner.</span>
+          <span>
+            {gpsError} Change station using the dropdown in the header banner.
+          </span>
         </div>
       )}
 
       {/* Live Google Map View - Refactored to have Map Preview only */}
       <div className="bg-white border border-brand-primary-border/25 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
-        
         {/* Map Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-primary-border/15 pb-4">
           <div>
@@ -229,12 +422,13 @@ export default function HealthCentre() {
               Live Google Map View
             </h4>
             <p className="text-xs text-neutral-secondary mt-1">
-              Geographical surroundings and location pin of the advised nearest medical camp.
+              Geographical surroundings and location pin of the advised nearest
+              medical camp.
             </p>
           </div>
 
           {advisedCamp && (
-            <a 
+            <a
               href={`https://www.google.com/maps/search/?api=1&query=${advisedCamp.lat},${advisedCamp.lon}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -260,7 +454,6 @@ export default function HealthCentre() {
             />
           </div>
         )}
-
       </div>
 
       {/* Nearest Medical Centers Directory */}
@@ -272,33 +465,37 @@ export default function HealthCentre() {
               Complete Medical Directory along the Route
             </h4>
             <p className="text-xs text-neutral-secondary mt-0.5">
-              Filtered list of medical tents and hospitals along the Yatra pathway.
+              Filtered list of medical tents and hospitals along the Yatra
+              pathway.
             </p>
           </div>
-          
+
           {/* Camp Search */}
           <div className="relative">
-            <input 
-              type="text" 
-              placeholder="Search camp, service or location..." 
+            <input
+              type="text"
+              placeholder="Search camp, service or location..."
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
               className="w-full md:w-64 h-9 bg-white border border-brand-primary-border/30 rounded-lg pl-8 pr-4 text-xs font-sans focus:outline-none focus:border-brand-primary transition-all shadow-sm"
             />
-            <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-secondary" />
+            <Search
+              size={14}
+              className="absolute left-2.5 top-2.5 text-neutral-secondary"
+            />
           </div>
         </div>
 
         {/* List of camps */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredCenters.length > 0 ? (
-            filteredCenters.map(center => (
-              <div 
+            filteredCenters.map((center) => (
+              <div
                 key={center.id}
                 className={`bg-white border rounded-2xl p-6 flex flex-col justify-between gap-6 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.01] ${
-                  center.id === advisedCamp.id 
-                    ? 'border-brand-primary bg-brand-primary-light/5'
-                    : 'border-brand-primary-border/25 hover:border-brand-primary-border/55'
+                  center.id === advisedCamp.id
+                    ? "border-brand-primary bg-brand-primary-light/5"
+                    : "border-brand-primary-border/25 hover:border-brand-primary-border/55"
                 }`}
               >
                 <div className="text-left flex-1 flex flex-col">
@@ -306,23 +503,34 @@ export default function HealthCentre() {
                     <h5 className="font-sans font-extrabold text-base text-neutral-dark">
                       {center.name}
                       {center.id === advisedCamp.id && (
-                        <span className="bg-saffron text-brand-saffron-bg-dark text-[9px] font-extrabold px-2 py-0.5 rounded ml-2 uppercase">Advised Nearest</span>
+                        <span className="bg-saffron text-brand-saffron-bg-dark text-[9px] font-extrabold px-2 py-0.5 rounded ml-2 uppercase">
+                          Advised Nearest
+                        </span>
                       )}
                     </h5>
-                    <span className="bg-neutral-bg border border-neutral-bg-cool text-[9px] font-extrabold px-2 py-0.5 rounded text-neutral-secondary uppercase shrink-0">{center.type}</span>
+                    <span className="bg-neutral-bg border border-neutral-bg-cool text-[9px] font-extrabold px-2 py-0.5 rounded text-neutral-secondary uppercase shrink-0">
+                      {center.type}
+                    </span>
                   </div>
-                  
+
                   {/* Distance info */}
                   <div className="flex items-center gap-1.5 text-xs font-bold text-brand-primary mb-3">
                     <MapPin size={14} className="text-saffron" />
                     <span>{center.distance} km away</span>
-                    <span className="text-neutral-secondary font-medium">({center.milestone} checkpoint)</span>
+                    <span className="text-neutral-secondary font-medium">
+                      ({center.milestone} checkpoint)
+                    </span>
                   </div>
 
                   {/* Amenities */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {center.facilities.map((fac, idx) => (
-                      <span key={idx} className="bg-neutral-bg/60 text-neutral-dark text-[9px] px-2 py-1 rounded border border-neutral-bg-cool/60 font-semibold">{fac}</span>
+                      <span
+                        key={idx}
+                        className="bg-neutral-bg/60 text-neutral-dark text-[9px] px-2 py-1 rounded border border-neutral-bg-cool/60 font-semibold"
+                      >
+                        {fac}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -331,16 +539,24 @@ export default function HealthCentre() {
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-t pt-4 border-neutral-bg-cool mt-auto">
                   <div className="flex gap-4 text-left w-full sm:w-auto">
                     <div>
-                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">Beds Available</p>
-                      <p className="text-sm font-extrabold text-neutral-dark mt-1">{center.beds} Wards</p>
+                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">
+                        Beds Available
+                      </p>
+                      <p className="text-sm font-extrabold text-neutral-dark mt-1">
+                        {center.beds} Wards
+                      </p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">Active Doctors</p>
-                      <p className="text-sm font-extrabold text-neutral-dark mt-1">{center.doctors} Staff</p>
+                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">
+                        Active Doctors
+                      </p>
+                      <p className="text-sm font-extrabold text-neutral-dark mt-1">
+                        {center.doctors} Staff
+                      </p>
                     </div>
                   </div>
-                  
-                  <a 
+
+                  <a
                     href={`tel:${center.phone}`}
                     className="flex items-center justify-center gap-1.5 bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white font-action font-extrabold text-xs px-4 py-2.5 rounded-lg transition-all shadow-sm w-full sm:w-auto text-center shrink-0"
                   >
@@ -363,7 +579,10 @@ export default function HealthCentre() {
         {quickInfos.map((info, idx) => {
           const Icon = info.icon;
           return (
-            <div key={idx} className="flex gap-4 items-start bg-white border border-brand-primary-border/15 rounded-2xl p-5 shadow-sm">
+            <div
+              key={idx}
+              className="flex gap-4 items-start bg-white border border-brand-primary-border/15 rounded-2xl p-5 shadow-sm"
+            >
               <div className="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center shrink-0">
                 <Icon size={18} />
               </div>
@@ -379,7 +598,6 @@ export default function HealthCentre() {
           );
         })}
       </div>
-
     </div>
   );
 }

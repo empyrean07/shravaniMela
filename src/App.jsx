@@ -1,22 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import HeroSection from './components/HeroSection';
-import LiveStatus from './components/LiveStatus';
-import WisdomCard from './components/WisdomCard';
-import FacilitiesGrid from './components/FacilitiesGrid';
-import MelaHelpline from './components/MelaHelpline';
-import HealthCentre from './components/HealthCentre';
-import Notification from './components/Notification';
-import DrinkingWater from './components/DrinkingWater';
-import RestingShelter from './components/RestingShelter';
-import FreeFood from './components/FreeFood';
-import SecurityPolice from './components/SecurityPolice';
-import LostFoundDesk from './components/LostFoundDesk';
-import BathingGhats from './components/BathingGhats';
-import MobileCharging from './components/MobileCharging';
-import LuggageCloak from './components/LuggageCloak';
-import SatsangHalls from './components/SatsangHalls';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import HeroSection from "./components/HeroSection";
+import LiveStatus from "./components/LiveStatus";
+import WisdomCard from "./components/WisdomCard";
+import FacilitiesGrid from "./components/FacilitiesGrid";
+import MelaHelpline from "./components/MelaHelpline";
+import HealthCentre from "./components/HealthCentre";
+import Notification from "./components/Notification";
+import DrinkingWater from "./components/DrinkingWater";
+import RestingShelter from "./components/RestingShelter";
+import FreeFood from "./components/FreeFood";
+import SecurityPolice from "./components/SecurityPolice";
+import LostFoundDesk from "./components/LostFoundDesk";
+import BathingGhats from "./components/BathingGhats";
+import MobileCharging from "./components/MobileCharging";
+import LuggageCloak from "./components/LuggageCloak";
+import SatsangHalls from "./components/SatsangHalls";
 
 function HomeTab() {
   return (
@@ -42,14 +42,14 @@ function FacilitiesTab() {
       {/* Hero Banner Header copied from Helpline top box design */}
       <div className="relative w-full h-80 md:h-72 lg:h-96 rounded-3xl overflow-hidden shadow-md flex items-end p-8 md:p-12">
         {/* Background Image */}
-        <img 
-          src="/deoghar_temple.jpg" 
+        <img
+          src="/deoghar_temple.jpg"
           alt="Deoghar Temple Sunset"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark/95 via-brand-primary-dark/45 to-transparent z-10" />
-        
+
         {/* Content Container */}
         <div className="relative z-20 flex flex-col md:flex-row md:items-end justify-between w-full gap-4 text-left">
           <div className="max-w-xl">
@@ -57,7 +57,8 @@ function FacilitiesTab() {
               Explore Yatra Facilities
             </h3>
             <p className="text-xs md:text-sm text-brand-primary-light/90 mt-2 leading-relaxed font-semibold">
-              Access free services, medical help, food distribution centers, and shelters set up for devotees.
+              Access free services, medical help, food distribution centers, and
+              shelters set up for devotees.
             </p>
           </div>
         </div>

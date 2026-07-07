@@ -1,5 +1,12 @@
-import React from 'react';
-import { MapPin, ArrowDown, Flag, Landmark, Compass, Award } from 'lucide-react';
+import React from "react";
+import {
+  MapPin,
+  ArrowDown,
+  Flag,
+  Landmark,
+  Compass,
+  Award,
+} from "lucide-react";
 
 export default function RouteMap() {
   const steps = [
@@ -9,7 +16,7 @@ export default function RouteMap() {
       dist: "0 km",
       desc: "Collect holy Gangajal from the river Ganges and start the barefoot journey.",
       icon: Flag,
-      color: "bg-emerald-500 text-white"
+      color: "bg-emerald-500 text-white",
     },
     {
       id: 2,
@@ -17,7 +24,7 @@ export default function RouteMap() {
       dist: "26 km",
       desc: "First major resting zone. Large government medical and food camps available.",
       icon: MapPin,
-      color: "bg-brand-primary text-white"
+      color: "bg-brand-primary text-white",
     },
     {
       id: 3,
@@ -25,7 +32,7 @@ export default function RouteMap() {
       dist: "64 km",
       desc: "Challenging hilly terrain. Sand-covered path constructed for barefoot comfort.",
       icon: MapPin,
-      color: "bg-brand-primary text-white"
+      color: "bg-brand-primary text-white",
     },
     {
       id: 4,
@@ -33,7 +40,7 @@ export default function RouteMap() {
       dist: "88 km",
       desc: "Border of Bihar and Jharkhand. Police checkpost and entry verification.",
       icon: Compass,
-      color: "bg-brand-primary text-white"
+      color: "bg-brand-primary text-white",
     },
     {
       id: 5,
@@ -41,8 +48,8 @@ export default function RouteMap() {
       dist: "105 km",
       desc: "Offer Gangajal to Lord Baidyanath at the main Jyotirlinga Temple.",
       icon: Landmark,
-      color: "bg-saffron text-brand-saffron-bg-dark"
-    }
+      color: "bg-saffron text-brand-saffron-bg-dark",
+    },
   ];
 
   return (
@@ -52,7 +59,8 @@ export default function RouteMap() {
           Yatra Route & Checkpoints
         </h3>
         <p className="text-xs text-neutral-secondary mt-1">
-          Detailed breakdown of the 105km devotional pathway from Sultanganj to Baba Baidyanath Temple.
+          Detailed breakdown of the 105km devotional pathway from Sultanganj to
+          Baba Baidyanath Temple.
         </p>
       </div>
 
@@ -62,7 +70,9 @@ export default function RouteMap() {
           return (
             <div key={step.id} className="relative group">
               {/* Step Node Marker */}
-              <div className={`absolute -left-[38px] md:-left-[46px] top-0 w-8 h-8 rounded-full border-4 border-white shadow flex items-center justify-center ${step.color} transition-transform duration-300 group-hover:scale-110`}>
+              <div
+                className={`absolute -left-[38px] md:-left-[46px] top-0 w-8 h-8 rounded-full border-4 border-white shadow flex items-center justify-center ${step.color} transition-transform duration-300 group-hover:scale-110`}
+              >
                 <Icon size={14} />
               </div>
 
@@ -72,10 +82,14 @@ export default function RouteMap() {
                   <h4 className="font-sans font-extrabold text-sm text-neutral-dark flex items-center gap-2">
                     {step.name}
                     {step.id === 5 && (
-                      <span className="bg-saffron-light/20 text-saffron-dark text-[9px] px-2 py-0.5 rounded font-extrabold border border-saffron/30 uppercase">Destination</span>
+                      <span className="bg-saffron-light/20 text-saffron-dark text-[9px] px-2 py-0.5 rounded font-extrabold border border-saffron/30 uppercase">
+                        Destination
+                      </span>
                     )}
                   </h4>
-                  <span className="text-xs font-extrabold text-brand-primary">{step.dist}</span>
+                  <span className="text-xs font-extrabold text-brand-primary">
+                    {step.dist}
+                  </span>
                 </div>
                 <p className="text-[11px] text-neutral-secondary leading-relaxed">
                   {step.desc}
