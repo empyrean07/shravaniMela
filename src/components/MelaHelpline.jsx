@@ -156,18 +156,18 @@ export default function MelaHelpline() {
                   <a
                     key={idx}
                     href={`tel:${dial.number}`}
-                    className={`flex flex-col items-center justify-center p-6 border rounded-2xl text-center transition-all duration-300 shadow-sm cursor-pointer ${dial.color}`}
+                    className={`flex flex-col items-center justify-center p-4 border rounded-xl text-center transition-all duration-300 shadow-sm cursor-pointer ${dial.color}`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-white/80 border border-current/15 flex items-center justify-center mb-3">
-                      <Icon size={18} />
+                    <div className="w-8 h-8 rounded-full bg-white/80 border border-current/15 flex items-center justify-center mb-2">
+                      <Icon size={14} />
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-wider">
+                    <span className="text-[10px] font-bold uppercase tracking-wider">
                       {dial.name}
                     </span>
-                    <span className="text-3xl font-black my-1">
+                    <span className="text-xl font-black my-0.5">
                       {dial.number}
                     </span>
-                    <span className="text-[10px] opacity-80 leading-normal max-w-[150px]">
+                    <span className="text-[9px] opacity-80 leading-normal max-w-[150px]">
                       {dial.sub}
                     </span>
                   </a>
