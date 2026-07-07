@@ -34,10 +34,6 @@ export default function LiveStatus() {
           <span className="w-2.5 h-2.5 rounded-full bg-saffron animate-pulse" />
           Live Darshan & Queue Status
         </h4>
-        <button className="text-brand-primary text-xs font-bold hover:underline flex items-center gap-1">
-          Full Status Dashboard
-          <ArrowRight size={14} />
-        </button>
       </div>
 
       {/* Live Video Placeholder Card */}

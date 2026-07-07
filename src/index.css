@@ -28,9 +28,39 @@
     color: var(--color-neutral-dark);
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
   body::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
+  }
+  /* Google Translate layout fixes and hiding banner */
+  html, body {
+    top: 0 !important;
+    position: static !important;
+  }
+  .translated-ltr {
+    margin-top: 0 !important;
+  }
+  /* Completely hide all Google Translate UI dialogs, banners, and frames */
+  iframe.skiptranslate,
+  .skiptranslate,
+  .goog-te-banner-frame, 
+  .goog-te-banner, 
+  .goog-te-menu-frame, 
+  .goog-tooltip, 
+  .goog-promotable,
+  #goog-gt-tt,
+  .goog-te-balloon-frame,
+  .goog-te-spinner-pos {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
 

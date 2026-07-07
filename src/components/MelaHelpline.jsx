@@ -19,7 +19,7 @@ export default function MelaHelpline() {
       sub: "Medical Emergency & First Aid",
       icon: AlertOctagon,
       color:
-        "border-red-200 bg-red-50/40 text-red-700 hover:bg-red-50 hover:shadow-red-100",
+        "border-saffron-light/40 bg-gradient-to-br from-saffron-light/35 to-saffron/10 text-saffron-dark hover:from-saffron-light/55 hover:to-saffron/20 hover:shadow-saffron-light/30 hover:scale-[1.02]",
     },
     {
       name: "Police",
@@ -27,7 +27,7 @@ export default function MelaHelpline() {
       sub: "Security & Crowd Control",
       icon: ShieldAlert,
       color:
-        "border-indigo-200 bg-indigo-50/40 text-indigo-700 hover:bg-indigo-50 hover:shadow-indigo-100",
+        "border-saffron-light/40 bg-gradient-to-br from-saffron-light/35 to-saffron/10 text-saffron-dark hover:from-saffron-light/55 hover:to-saffron/20 hover:shadow-saffron-light/30 hover:scale-[1.02]",
     },
     {
       name: "Fire Rescue",
@@ -35,7 +35,7 @@ export default function MelaHelpline() {
       sub: "Fire & Rescue Operations",
       icon: LifeBuoy,
       color:
-        "border-saffron-light/30 bg-saffron-light/5 text-saffron-dark hover:bg-saffron-light/10 hover:shadow-saffron-light/10",
+        "border-saffron-light/40 bg-gradient-to-br from-saffron-light/35 to-saffron/10 text-saffron-dark hover:from-saffron-light/55 hover:to-saffron/20 hover:shadow-saffron-light/30 hover:scale-[1.02]",
     },
   ];
 

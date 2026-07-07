@@ -189,6 +189,29 @@ export default function FacilitiesGrid({ isHome = false }) {
             return (
               <div 
                 key={facility.id} 
+                onClick={() => {
+                  if (facility.id === 1 || facility.title === "Medical Camps") {
+                    navigate('/health');
+                  } else if (facility.id === 2 || facility.title.includes("Water")) {
+                    navigate('/water');
+                  } else if (facility.id === 3 || facility.title.includes("Shelter")) {
+                    navigate('/shelter');
+                  } else if (facility.id === 4 || facility.title.includes("Food")) {
+                    navigate('/food');
+                  } else if (facility.id === 5 || facility.title.includes("Security")) {
+                    navigate('/security');
+                  } else if (facility.id === 7 || facility.title.includes("Lost")) {
+                    navigate('/lostfound');
+                  } else if (facility.id === 8 || facility.title.includes("Ghats")) {
+                    navigate('/ghats');
+                  } else if (facility.id === 10 || facility.title.includes("Charging")) {
+                    navigate('/charging');
+                  } else if (facility.id === 11 || facility.title.includes("Cloak")) {
+                    navigate('/cloakroom');
+                  } else if (facility.id === 12 || facility.title.includes("Satsang")) {
+                    navigate('/satsang');
+                  }
+                }}
                 className="bg-white border border-brand-primary-border/25 rounded-2xl p-6 flex flex-col gap-3 text-left hover:shadow-md hover:border-brand-primary-border/55 transition-all duration-300 group cursor-pointer"
               >
                 <div className={`w-10 h-10 rounded-xl ${facility.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-105`}>

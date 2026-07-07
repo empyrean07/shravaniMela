@@ -290,18 +290,18 @@ export default function HealthCentre() {
         </div>
 
         {/* List of camps */}
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredCenters.length > 0 ? (
             filteredCenters.map(center => (
               <div 
                 key={center.id}
-                className={`bg-white border rounded-2xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 shadow-sm transition-all duration-200 ${
+                className={`bg-white border rounded-2xl p-6 flex flex-col justify-between gap-6 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.01] ${
                   center.id === advisedCamp.id 
                     ? 'border-brand-primary bg-brand-primary-light/5'
                     : 'border-brand-primary-border/25 hover:border-brand-primary-border/55'
                 }`}
               >
-                <div className="text-left flex-1">
+                <div className="text-left flex-1 flex flex-col">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <h5 className="font-sans font-extrabold text-base text-neutral-dark">
                       {center.name}
@@ -309,7 +309,7 @@ export default function HealthCentre() {
                         <span className="bg-saffron text-brand-saffron-bg-dark text-[9px] font-extrabold px-2 py-0.5 rounded ml-2 uppercase">Advised Nearest</span>
                       )}
                     </h5>
-                    <span className="bg-neutral-bg border border-neutral-bg-cool text-[9px] font-extrabold px-2 py-0.5 rounded text-neutral-secondary uppercase">{center.type}</span>
+                    <span className="bg-neutral-bg border border-neutral-bg-cool text-[9px] font-extrabold px-2 py-0.5 rounded text-neutral-secondary uppercase shrink-0">{center.type}</span>
                   </div>
                   
                   {/* Distance info */}
@@ -320,7 +320,7 @@ export default function HealthCentre() {
                   </div>
 
                   {/* Amenities */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {center.facilities.map((fac, idx) => (
                       <span key={idx} className="bg-neutral-bg/60 text-neutral-dark text-[9px] px-2 py-1 rounded border border-neutral-bg-cool/60 font-semibold">{fac}</span>
                     ))}
@@ -328,21 +328,21 @@ export default function HealthCentre() {
                 </div>
 
                 {/* Capacity & Action */}
-                <div className="flex flex-col sm:flex-row md:flex-col items-stretch md:items-end gap-3 w-full md:w-auto shrink-0 border-t md:border-t-0 pt-4 md:pt-0 border-neutral-bg-cool">
-                  <div className="text-left md:text-right flex justify-between md:flex-col gap-2">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-t pt-4 border-neutral-bg-cool mt-auto">
+                  <div className="flex gap-4 text-left w-full sm:w-auto">
                     <div>
                       <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">Beds Available</p>
-                      <p className="text-sm font-extrabold text-neutral-dark">{center.beds} Wards</p>
+                      <p className="text-sm font-extrabold text-neutral-dark mt-1">{center.beds} Wards</p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none md:mt-1">Active Doctors</p>
-                      <p className="text-sm font-extrabold text-neutral-dark">{center.doctors} Staff</p>
+                      <p className="text-[10px] text-neutral-secondary font-medium uppercase leading-none">Active Doctors</p>
+                      <p className="text-sm font-extrabold text-neutral-dark mt-1">{center.doctors} Staff</p>
                     </div>
                   </div>
                   
                   <a 
                     href={`tel:${center.phone}`}
-                    className="flex items-center justify-center gap-1.5 bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white font-action font-extrabold text-xs px-4 py-2.5 rounded-lg transition-all shadow-sm"
+                    className="flex items-center justify-center gap-1.5 bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white font-action font-extrabold text-xs px-4 py-2.5 rounded-lg transition-all shadow-sm w-full sm:w-auto text-center shrink-0"
                   >
                     <Phone size={14} />
                     Call Emergency Post
@@ -351,7 +351,7 @@ export default function HealthCentre() {
               </div>
             ))
           ) : (
-            <div className="p-8 text-center text-xs text-neutral-secondary border border-dashed border-brand-primary-border/25 rounded-2xl bg-white">
+            <div className="col-span-1 md:col-span-2 p-8 text-center text-xs text-neutral-secondary border border-dashed border-brand-primary-border/25 rounded-2xl bg-white">
               No medical camps found matching your filter criteria.
             </div>
           )}

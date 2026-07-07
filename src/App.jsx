@@ -8,6 +8,15 @@ import FacilitiesGrid from './components/FacilitiesGrid';
 import MelaHelpline from './components/MelaHelpline';
 import HealthCentre from './components/HealthCentre';
 import Notification from './components/Notification';
+import DrinkingWater from './components/DrinkingWater';
+import RestingShelter from './components/RestingShelter';
+import FreeFood from './components/FreeFood';
+import SecurityPolice from './components/SecurityPolice';
+import LostFoundDesk from './components/LostFoundDesk';
+import BathingGhats from './components/BathingGhats';
+import MobileCharging from './components/MobileCharging';
+import LuggageCloak from './components/LuggageCloak';
+import SatsangHalls from './components/SatsangHalls';
 
 function HomeTab() {
   return (
@@ -68,6 +77,15 @@ export default function App() {
           <Route path="helpline" element={<MelaHelpline />} />
           <Route path="health" element={<HealthCentre />} />
           <Route path="facilities" element={<FacilitiesTab />} />
+          <Route path="water" element={<DrinkingWater />} />
+          <Route path="shelter" element={<RestingShelter />} />
+          <Route path="food" element={<FreeFood />} />
+          <Route path="security" element={<SecurityPolice />} />
+          <Route path="lostfound" element={<LostFoundDesk />} />
+          <Route path="ghats" element={<BathingGhats />} />
+          <Route path="charging" element={<MobileCharging />} />
+          <Route path="cloakroom" element={<LuggageCloak />} />
+          <Route path="satsang" element={<SatsangHalls />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
       </Routes>
