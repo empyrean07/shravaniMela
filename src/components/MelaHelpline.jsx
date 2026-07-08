@@ -85,10 +85,6 @@ export default function MelaHelpline() {
       title: "Health & Hygiene",
       text: "Report water shortages or sanitation issues to the Nodal Officer to help us maintain a clean Mela environment.",
     },
-    {
-      title: "24/7 Spiritual Care",
-      text: "We are here to support your devotion. Stay calm and helpful to others.",
-    },
   ];
 
   const filteredDirectory = directory.filter(

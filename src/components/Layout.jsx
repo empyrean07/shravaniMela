@@ -108,7 +108,7 @@ export default function Layout() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Scrollable Workspace canvas */}
         <main ref={mainRef} className={`flex-1 overflow-y-auto no-scrollbar relative w-full ${
-          isHomePage ? "p-0 m-0" : "p-6 md:p-8 max-w-7xl mx-auto"
+          isHomePage ? "p-0 m-0" : "p-4 md:p-6 max-w-[90%] w-full mx-auto"
         }`}>
           <Outlet context={[notifications, setNotifications]} />
         </main>

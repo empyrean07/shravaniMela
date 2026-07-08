@@ -25,7 +25,7 @@ function HomeTab() {
       <HeroSection />
 
       {/* Content Container - Centered with decreased side margins to increase content width */}
-      <div className="max-w-8xl w-full mx-auto px-4 md:px-6 flex flex-col gap-12">
+      <div className="max-w-[90%] w-full mx-auto px-4 md:px-6 flex flex-col gap-12">
         {/* Middle Columns: Live Darshan & Wisdom */}
         <div className="flex flex-col lg:flex-row gap-8 items-stretch">
           <LiveStatus />
