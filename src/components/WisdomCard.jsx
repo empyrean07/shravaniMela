@@ -12,7 +12,7 @@ export default function WisdomCard() {
     { id: 4, text: "Contact helpdesks for medical emergencies immediately." },
     { id: 5, text: "Avoid using plastic bags to keep the holy Yatra route clean and eco-friendly." },
     { id: 6, text: "Follow the queue complex directions and cooperate with local police." },
-    { id: 7, text: "Register yourself at Sultanganj entry points for emergency tracking." },
+    { id: 7, text: "Maintain hygiene and cleanliness at holy bathing ghats and transit shelters." },
   ];
 
   return (
