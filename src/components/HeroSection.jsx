@@ -180,9 +180,8 @@ export default function HeroSection() {
           />
         ))}
 
-        {/* Subtle low-intensity gradients for clear image visibility */}
-        <div className="absolute inset-0 bg-neutral-dark/35 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark/60 via-transparent to-transparent z-10" />
+        {/* Left-to-right gradient overlay for text readability and cinematic depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-dark/85 via-neutral-dark/60 to-neutral-dark/15 z-10" />
 
         {/* Hero Content (re-mounts on index change to trigger slideUp animation) */}
         <div 
@@ -213,22 +212,6 @@ export default function HeroSection() {
             <span>{slides[currentIndex].location}</span>
           </div>
         </div>
-
-        {/* Manual Navigation Arrows (Hover state triggers visibility) */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/25 hover:bg-black/45 border border-white/10 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-0 group-hover:opacity-100 cursor-pointer"
-          title="Previous Slide"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <button
-          onClick={handleNext}
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/25 hover:bg-black/45 border border-white/10 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-0 group-hover:opacity-100 cursor-pointer"
-          title="Next Slide"
-        >
-          <ChevronRight size={20} />
-        </button>
 
         {/* Slider Indicator Dots with progress loader */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
