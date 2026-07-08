@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import React, { useState, useEffect, useRef } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import TopAppBar from "./TopAppBar";
 import { Phone } from "lucide-react";
 
@@ -78,19 +77,39 @@ export default function Layout() {
   }, [notifications]);
 
   const unreadCount = notifications.filter((n) => n.unread).length;
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  const mainRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const mainEl = mainRef.current;
+    if (!mainEl) return;
+
+    const handleScroll = () => {
+      // Toggle header style after scrolling 60px
+      setIsScrolled(mainEl.scrollTop > 60);
+    };
+
+    mainEl.addEventListener("scroll", handleScroll, { passive: true });
+    // Trigger initially
+    handleScroll();
+
+    return () => mainEl.removeEventListener("scroll", handleScroll);
+  }, [location.pathname]);
 
   return (
-    <div className="relative flex h-screen w-screen overflow-hidden bg-neutral-bg text-neutral-dark font-sans antialiased">
-      {/* Sidebar Navigation */}
-      <Sidebar />
+    <div className="relative flex flex-col h-screen w-screen overflow-hidden bg-neutral-bg text-neutral-dark font-sans antialiased">
+      {/* Top Header with dynamic unread indicator and overlay detection */}
+      <TopAppBar unreadCount={unreadCount} isHomePage={isHomePage} isScrolled={isScrolled} />
 
       {/* Main Panel Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Header with dynamic unread indicator */}
-        <TopAppBar unreadCount={unreadCount} />
-
         {/* Scrollable Workspace canvas */}
-        <main className="flex-1 overflow-y-auto no-scrollbar p-8 max-w-7xl w-full mx-auto relative">
+        <main ref={mainRef} className={`flex-1 overflow-y-auto no-scrollbar relative w-full ${
+          isHomePage ? "p-0 m-0" : "p-6 md:p-8 max-w-7xl mx-auto"
+        }`}>
           <Outlet context={[notifications, setNotifications]} />
         </main>
       </div>

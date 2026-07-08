@@ -26,7 +26,7 @@ export default function LiveStatus() {
   ];
 
   return (
-    <div className="flex-1 flex flex-col gap-6">
+    <div className="flex-1 lg:flex-[2] flex flex-col gap-6">
       {/* Header bar */}
       <div className="flex items-center justify-between">
         <h4 className="font-sans font-bold text-lg text-neutral-dark flex items-center gap-2">
@@ -36,7 +36,7 @@ export default function LiveStatus() {
       </div>
 
       {/* Live Video Placeholder Card */}
-      <div className="relative w-full h-[264px] rounded-2xl overflow-hidden shadow-md group">
+      <div className="relative w-full h-[380px] md:h-[440px] rounded-2xl overflow-hidden shadow-md group">
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
           style={{ backgroundImage: `url('/deoghar_temple.jpg')` }}
@@ -64,8 +64,8 @@ export default function LiveStatus() {
         </div>
       </div>
 
-      {/* Status Info Banners */}
-      <div className="flex flex-col gap-4">
+      {/* Status Info Banners in a single row on desktop/tablet, stacked on mobile */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {statusBanners.map((banner) => {
           const Icon = banner.icon;
           return (

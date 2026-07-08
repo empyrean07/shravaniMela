@@ -11,6 +11,7 @@ import {
   FolderHeart,
   ShieldAlert,
   Navigation,
+  Info,
 } from "lucide-react";
 
 export default function HealthCentre() {

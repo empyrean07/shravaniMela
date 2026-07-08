@@ -20,18 +20,21 @@ import SatsangHalls from "./components/SatsangHalls";
 
 function HomeTab() {
   return (
-    <div className="flex flex-col gap-8">
-      {/* Hero Section */}
+    <div className="flex flex-col gap-12 w-full pb-12">
+      {/* Hero Section - Full bleed */}
       <HeroSection />
 
-      {/* Middle Columns: Live Darshan & Wisdom */}
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
-        <LiveStatus />
-        <WisdomCard />
-      </div>
+      {/* Content Container - Centered with decreased side margins to increase content width */}
+      <div className="max-w-8xl w-full mx-auto px-4 md:px-6 flex flex-col gap-12">
+        {/* Middle Columns: Live Darshan & Wisdom */}
+        <div className="flex flex-col lg:flex-row gap-8 items-stretch">
+          <LiveStatus />
+          <WisdomCard />
+        </div>
 
-      {/* Facilities & Services Grid */}
-      <FacilitiesGrid isHome={true} />
+        {/* Facilities & Services Grid */}
+        <FacilitiesGrid isHome={true} />
+      </div>
     </div>
   );
 }
